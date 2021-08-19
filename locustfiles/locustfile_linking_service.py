@@ -6,10 +6,21 @@ from locust import HttpUser, task, between, tag
 from locust.contrib.fasthttp import FastHttpUser
 
 
-class QuickstartUser(FastHttpUser):
+class LinkingTester(FastHttpUser):
     wait_time = between(5, 9)
 
     paragraphs = []
+    formulas = []
+
+    @tag('classify_formula')
+    @task
+    def classify_formula(self):
+        n = random.randint(0, len(self.formulas) - 1)
+        formula = self.formulas[n]
+
+        headers = {"Accept": "application/json"}
+        files = {"input": json.dumps(formula)}
+        self.client.post(path="/classify/formula", data=files, headers=headers, name="/classify/formula")
 
     @tag('classify_temperature')
     @task
@@ -34,13 +45,17 @@ class QuickstartUser(FastHttpUser):
 
     def on_start(self):
         # pydevd_pycharm.settrace('localhost', port=8999, stdoutToServer=True, stderrToServer=True)
-        for root, dirs, files in os.walk("paragraphs/"):
+        for root, dirs, files in os.walk("data/paragraphs/"):
             for file_ in files:
                 if not file_.lower().endswith(".json"):
                     continue
                 abs_path = os.path.join(root, file_)
 
                 with open(abs_path, 'r') as f:
-                    paragraphs = json.load(f)
-                    self.paragraphs.extend(paragraphs)
+                    sentences = json.load(f)
+                    self.paragraphs.extend(sentences)
+
+        with open("data/formula/materials_sorted", 'r') as f:
+                self.formulas = f.readlines()
+
 
