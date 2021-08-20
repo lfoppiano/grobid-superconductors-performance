@@ -45,7 +45,7 @@ class LinkingTester(FastHttpUser):
 
     def on_start(self):
         # pydevd_pycharm.settrace('localhost', port=8999, stdoutToServer=True, stderrToServer=True)
-        for root, dirs, files in os.walk("resources/data/paragraphs/"):
+        for root, dirs, files in os.walk("resources/data/documents/"):
             for file_ in files:
                 if not file_.lower().endswith(".json"):
                     continue
@@ -55,7 +55,7 @@ class LinkingTester(FastHttpUser):
                     sentences = json.load(f)
                     self.paragraphs.extend(sentences)
 
-        with open("resources/data/formula/materials_sorted.txt", 'r') as f:
+        with open("resources/data/formulas/materials.sorted.txt", 'r') as f:
                 self.formulas = f.readlines()
 
 
