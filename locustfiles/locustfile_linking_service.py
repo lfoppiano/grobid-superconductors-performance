@@ -2,12 +2,12 @@ import json
 import os
 import random
 
-from locust import task, between, tag
+from locust import task, between, tag, constant
 from locust.contrib.fasthttp import FastHttpUser
 
 
 class LinkingTester(FastHttpUser):
-    wait_time = between(5, 9)
+    wait_time = constant(1)
 
     paragraphs = []
     formulas = []
