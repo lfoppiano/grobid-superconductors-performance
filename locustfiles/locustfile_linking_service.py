@@ -55,7 +55,7 @@ class LinkingTester(FastHttpUser):
                     sentences = json.load(f)
                     self.paragraphs.extend(sentences)
 
-        with open("resources/data/formula/materials_sorted", 'r') as f:
+        with open("resources/data/formula/materials_sorted.txt", 'r') as f:
                 self.formulas = f.readlines()
 
 
