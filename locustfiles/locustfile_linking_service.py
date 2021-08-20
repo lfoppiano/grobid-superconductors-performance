@@ -61,5 +61,5 @@ class LinkingTester(FastHttpUser):
         if len(self.formulas) == 0:
             print("Loading formulas")
             with open("resources/data/formulas/materials.sorted.txt", 'r') as f:
-                self.formulas = f.readlines()
+                self.formulas.extend(f.readlines())
 
