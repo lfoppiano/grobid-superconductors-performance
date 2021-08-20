@@ -53,13 +53,13 @@ class LinkingTester(FastHttpUser):
 
 
     def on_start(self):
-        for root, dirs, files in os.walk("data/pdfs/"):
+        for root, dirs, files in os.walk("resources/data/pdfs/"):
             for file_ in files:
                 if file_.lower().endswith(".pdf"):
                     abs_path = os.path.join(root, file_)
                     self.pdf_documents.add(abs_path)
 
-        for root, dirs, files in os.walk("data/texts/"):
+        for root, dirs, files in os.walk("resources/data/texts/"):
             for file_ in files:
                 if file_.lower().endswith(".txt"):
                     abs_path = os.path.join(root, file_)
