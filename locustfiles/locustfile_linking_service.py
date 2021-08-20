@@ -7,7 +7,7 @@ from locust.contrib.fasthttp import FastHttpUser
 
 
 class LinkingTester(FastHttpUser):
-    wait_time = constant(1)
+    wait_time = between(1, 2)
 
     paragraphs = []
     formulas = []
@@ -45,17 +45,21 @@ class LinkingTester(FastHttpUser):
 
     def on_start(self):
         # pydevd_pycharm.settrace('localhost', port=8999, stdoutToServer=True, stderrToServer=True)
-        for root, dirs, files in os.walk("resources/data/documents/"):
-            for file_ in files:
-                if not file_.lower().endswith(".json"):
-                    continue
-                abs_path = os.path.join(root, file_)
 
-                with open(abs_path, 'r') as f:
-                    sentences = json.load(f)
-                    self.paragraphs.extend(sentences)
+        if len(self.paragraphs) == 0:
+            print("Loading documents")
+            for root, dirs, files in os.walk("resources/data/documents/"):
+                for file_ in files:
+                    if not file_.lower().endswith(".json"):
+                        continue
+                    abs_path = os.path.join(root, file_)
 
-        with open("resources/data/formulas/materials.sorted.txt", 'r') as f:
-                self.formulas = f.readlines()
+                    with open(abs_path, 'r') as f:
+                        sentences = json.load(f)
+                        self.paragraphs.extend(sentences)
 
+        if len(self.formulas) == 0:
+            print("Loading formulas")
+            with open("resources/data/formulas/materials.sorted.txt", 'r') as f:
+                    self.formulas = f.readlines()
 
