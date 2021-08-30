@@ -42,9 +42,11 @@ class LinkingTester(FastHttpUser):
             n = random.randint(0, len(self.paragraphs) - 1)
             sentences.append(self.paragraphs[n])
 
+        print(sentences)
+
         headers = {"Accept": "application/json"}
         files = {"input": json.dumps(sentences)}
-        self.client.post(path="/process/link/single", data=files, headers=headers, name="/process/link")
+        self.client.post(path="/process/link", data=files, headers=headers, name="/process/link")
 
 
     def on_start(self):
@@ -52,7 +54,7 @@ class LinkingTester(FastHttpUser):
 
         if len(self.paragraphs) == 0:
             print("Loading documents")
-            for root, dirs, files in os.walk("resources/data/documents/"):
+            for root, dirs, files in os.walk("resources/data/input/"):
                 for file_ in files:
                     if not file_.lower().endswith(".json"):
                         continue
