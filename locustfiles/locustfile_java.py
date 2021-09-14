@@ -51,7 +51,6 @@ class GrobidSuperconductorsTester(HttpUser):
         files = {"input": json.dumps(paragraph)}
         self.client.post(path="/service/process/json", data=files, headers=headers, name="/service/process/json")
 
-
     def on_start(self):
         if len(self.pdf_documents) == 0:
             # for root, dirs, files in os.walk("resources/data/pdfs/"):
@@ -70,9 +69,8 @@ class GrobidSuperconductorsTester(HttpUser):
                             for line in text_file:
                                 self.text_documents.append(line.strip())
 
-
         if len(self.json_documents) == 0:
-            for root, dirs, files in os.walk("resources/data/json/"):
+            for root, dirs, files in os.walk("resources/data/documents/"):
                 for file_ in files:
                     if file_.lower().endswith(".json"):
                         abs_path = os.path.join(root, file_)
