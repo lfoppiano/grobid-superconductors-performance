@@ -49,7 +49,7 @@ class GrobidSuperconductorsTester(HttpUser):
 
         headers = {"Accept": "application/json"}
         files = {"input": json.dumps(paragraph)}
-        self.client.post(path="/service/process/json", data=files, headers=headers, name="/service/process/json")
+        self.client.post("/service/process/json", files=files, headers=headers, name="/service/process/json")
 
     def on_start(self):
         if len(self.pdf_documents) == 0:
