@@ -44,8 +44,8 @@ class GrobidSuperconductorsTester(HttpUser):
     @tag('process_json')
     @task
     def process_json(self):
-        n = random.randint(0, len(self.paragraphs) - 1)
-        paragraph = self.paragraphs[n]
+        n = random.randint(0, len(self.json_documents) - 1)
+        paragraph = self.json_documents[n]
 
         headers = {"Accept": "application/json"}
         files = {"input": json.dumps(paragraph)}
@@ -78,4 +78,4 @@ class GrobidSuperconductorsTester(HttpUser):
                         abs_path = os.path.join(root, file_)
                         with open(abs_path, 'r') as text_file:
                             document = json.load(text_file)
-                            self.paragraphs.extend(sentences)
+                            self.json_documents.extend(document)
